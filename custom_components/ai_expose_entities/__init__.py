@@ -10,7 +10,7 @@ This integration demonstrates best practices for:
 - Proper error handling and recovery
 
 For more details about this integration, please refer to:
-https://github.com/pdrakeweb/ha-ai-expose-entities
+https://github.com/zmcnaney/ha-ai-expose-entities
 
 For integration development guidelines:
 https://developers.home-assistant.io/docs/creating_integration_manifest

@@ -10,7 +10,7 @@ This is a Home Assistant custom integration that was generated from a blueprint 
 
 - **Domain:** `ai_expose_entities`
 - **Title:** AI Expose Entities
-- **Repository:** pdrakeweb/ha-ai-expose-entities
+- **Repository:** zmcnaney/ha-ai-expose-entities
 
 **Key directories:**
 

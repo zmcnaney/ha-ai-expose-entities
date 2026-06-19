@@ -106,13 +106,7 @@ class AIExposeEntitiesConfigFlowHandler(config_entries.ConfigFlow, domain=DOMAIN
 
         ai_task_options = get_ai_task_options(self.hass)
         if not ai_task_options:
-            return self.async_show_form(
-                step_id="user",
-                errors={"base": "no_ai_tasks"},
-                description_placeholders={
-                    "message": "No AI Tasks are available. Please configure at least one AI Task in Home Assistant before setting up this integration."
-                },
-            )
+            return self.async_abort(reason="no_ai_tasks")
         return self.async_show_form(
             step_id="user",
             data_schema=get_user_schema(

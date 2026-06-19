@@ -18,12 +18,12 @@ This schema combines Home Assistant's official manifest requirements with HACS-s
 {
   "domain": "ai_expose_entities",
   "name": "AI Expose Entities",
-  "codeowners": ["@pdrakeweb"],
+  "codeowners": ["@zmcnaney"],
   "config_flow": true,
-  "documentation": "https://github.com/pdrakeweb/ha-ai-expose-entities",
+  "documentation": "https://github.com/zmcnaney/ha-ai-expose-entities",
   "integration_type": "device",
   "iot_class": "cloud_polling",
-  "issue_tracker": "https://github.com/pdrakeweb/ha-ai-expose-entities/issues",
+  "issue_tracker": "https://github.com/zmcnaney/ha-ai-expose-entities/issues",
   "requirements": [],
   "version": "0.0.0"
 }
@@ -82,7 +82,7 @@ GitHub usernames with `@` prefix:
 
 ```json
 "codeowners": [
-  "@pdrakeweb"
+  "@zmcnaney"
 ]
 ```
 

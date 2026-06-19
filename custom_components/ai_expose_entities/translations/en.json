@@ -3,53 +3,50 @@
     "step": {
       "user": {
         "title": "AI Expose Entities",
-        "description": "Create an entry to manage AI recommendations for Assist exposure.",
+        "description": "Pick the AI Task that should generate exposure recommendations. The AI Task entity comes from a conversation integration such as Anthropic Conversation (Claude), Google Generative AI, or OpenAI Conversation — set one up first if the dropdown is empty.",
         "data": {
-          "agent_id": "Conversation agent",
           "ai_task_id": "AI Task",
-          "entity_sample_size": "Entities per Run",
+          "entity_sample_size": "Entities per run",
           "custom_prompt_enabled": "Use custom prompt",
           "custom_prompt": "Custom prompt"
         },
         "data_description": {
-          "agent_id": "Conversation agent used to generate recommendations",
-          "ai_task_id": "AI Task used for recommendations",
-          "entity_sample_size": "Number of entities processed per run",
-          "custom_prompt_enabled": "Override the default prompt used to generate recommendations",
-          "custom_prompt": "Prefilled with the default prompt. Edit it when enabling custom prompts."
+          "ai_task_id": "AI Task entity used to generate recommendations (for Claude, set up Anthropic Conversation and add an AI Task subentry).",
+          "entity_sample_size": "Maximum number of entities sent to the AI in a single run. If you have more entities than this, a random sample is used.",
+          "custom_prompt_enabled": "Override the built-in prompt used to generate recommendations.",
+          "custom_prompt": "Your prompt is prepended to the built-in instructions. Use {entity_list} as a placeholder if you want it embedded explicitly."
         }
       },
       "reconfigure": {
         "title": "Reconfigure AI Expose Entities",
-        "description": "Update which conversation agent is used for recommendations for {name}.",
+        "description": "Update which AI Task is used to generate recommendations for {name}.",
         "data": {
-          "agent_id": "Conversation agent",
           "ai_task_id": "AI Task",
-          "entity_sample_size": "Entities per Run",
+          "entity_sample_size": "Entities per run",
           "custom_prompt_enabled": "Use custom prompt",
           "custom_prompt": "Custom prompt"
         },
         "data_description": {
-          "agent_id": "Conversation agent used to generate recommendations",
-          "ai_task_id": "AI Task used for recommendations",
-          "entity_sample_size": "Number of entities processed per run",
-          "custom_prompt_enabled": "Override the default prompt used to generate recommendations",
-          "custom_prompt": "Prefilled with the default prompt. Edit it when enabling custom prompts."
+          "ai_task_id": "AI Task entity used to generate recommendations.",
+          "entity_sample_size": "Maximum number of entities sent to the AI in a single run.",
+          "custom_prompt_enabled": "Override the built-in prompt used to generate recommendations.",
+          "custom_prompt": "Your prompt is prepended to the built-in instructions. Use {entity_list} as a placeholder if you want it embedded explicitly."
         }
       }
     },
     "abort": {
-      "already_configured": "This entry is already configured.",
-      "reconfigure_successful": "Integration reconfigured successfully."
+      "already_configured": "This integration is already configured.",
+      "reconfigure_successful": "Integration reconfigured successfully.",
+      "no_ai_tasks": "No AI Task entities were found.\n\nThis integration needs an AI Task to call. To use Claude, set up Home Assistant's built-in **Anthropic Conversation** integration with your Anthropic API key, then add an **AI Task** subentry from it (Settings → Devices & Services → Anthropic Conversation → Configure → Add subentry → AI Task).\n\nOnce an `ai_task.*` entity exists, restart this setup."
     }
   },
   "options": {
     "step": {
       "init": {
-        "title": "Configure Integration Options",
-        "description": "Select the AI agent and schedule recommendation runs.",
+        "title": "AI Expose Entities options",
+        "description": "Adjust how recommendations are generated and scheduled.",
         "data": {
-          "agent_id": "Conversation agent",
+          "ai_task_id": "AI Task",
           "schedule_enabled": "Enable daily recommendations",
           "schedule_time": "Daily run time",
           "custom_prompt_enabled": "Use custom prompt",
@@ -57,113 +54,36 @@
           "enable_debugging": "Enable debug logging"
         },
         "data_description": {
-          "agent_id": "Conversation agent used to generate recommendations",
-          "schedule_enabled": "Run a daily recommendation automatically",
-          "schedule_time": "Local time to run the daily recommendation",
-          "custom_prompt_enabled": "Override the default prompt used to generate recommendations",
-          "custom_prompt": "Prefilled with the default prompt. Edit it when enabling custom prompts.",
-          "enable_debugging": "Enable detailed debug logging for troubleshooting"
+          "ai_task_id": "AI Task entity used to generate recommendations.",
+          "schedule_enabled": "Run a recommendation pass automatically once per day.",
+          "schedule_time": "Local time at which the daily recommendation runs.",
+          "custom_prompt_enabled": "Override the built-in prompt used to generate recommendations.",
+          "custom_prompt": "Your prompt is prepended to the built-in instructions.",
+          "enable_debugging": "Emit detailed debug logging for troubleshooting."
         }
+      }
+    }
+  },
+  "selector": {
+    "ai_task_id": {
+      "options": {}
+    },
+    "aggressiveness": {
+      "options": {
+        "minimal": "Minimal — only a handful of entities",
+        "gentle": "Gentle — small, conservative set",
+        "balanced": "Balanced — useful, moderate set",
+        "bold": "Bold — broad coverage",
+        "maximal": "Maximal — include nearly everything useful"
       }
     }
   },
   "exceptions": {
-    "authentication_failed": {
-      "message": "Authentication failed during data update."
+    "recommendation_failed": {
+      "message": "The AI Task call failed while generating recommendations."
     },
-    "update_failed": {
-      "message": "Failed to update data from the server."
-    },
-    "switch_turn_on_failed": {
-      "message": "Failed to turn on the switch."
-    },
-    "switch_turn_off_failed": {
-      "message": "Failed to turn off the switch."
-    },
-    "number_set_failed": {
-      "message": "Failed to set the target value."
-    }
-  },
-  "entity": {
-    "sensor": {
-      "air_quality_index": {
-        "name": "Air Quality Index"
-      },
-      "pm25": {
-        "name": "PM2.5"
-      },
-      "filter_life": {
-        "name": "Filter Life Remaining"
-      },
-      "runtime": {
-        "name": "Total Runtime"
-      }
-    },
-    "binary_sensor": {
-      "api_connectivity": {
-        "name": "API Connection"
-      },
-      "filter_replacement": {
-        "name": "Filter Replacement Needed"
-      }
-    },
-    "switch": {
-      "child_lock": {
-        "name": "Child Lock"
-      },
-      "led_display": {
-        "name": "LED Display"
-      }
-    },
-    "select": {
-      "fan_speed": {
-        "name": "Fan Speed",
-        "state": {
-          "low": "Low",
-          "medium": "Medium",
-          "high": "High",
-          "auto": "Auto"
-        }
-      }
-    },
-    "number": {
-      "target_humidity": {
-        "name": "Target Humidity"
-      }
-    },
-    "button": {
-      "reset_filter": {
-        "name": "Reset Filter Timer"
-      }
-    },
-    "fan": {
-      "air_purifier": {
-        "name": "Air Purifier"
-      }
-    }
-  },
-  "issues": {
-    "deprecated_api_endpoint": {
-      "title": "Deprecated API Endpoint",
-      "fix_flow": {
-        "step": {
-          "init": {
-            "title": "Update API Endpoint",
-            "description": "Your device is using API version {api_version} which is deprecated. Please update to v2 for continued support and new features.\n\nClick Submit to update your device to use the new API endpoint (v2). This will reload the integration."
-          }
-        }
-      }
-    },
-    "missing_configuration": {
-      "title": "Missing Configuration",
-      "fix_flow": {
-        "step": {
-          "init": {
-            "title": "Acknowledge Configuration Issue",
-            "description": "Some configuration options are missing or invalid. Please reconfigure the integration to ensure proper operation.\n\nClick Submit to acknowledge this issue. You may need to reconfigure the integration if problems persist."
-          }
-        }
-      }
+    "ai_response_invalid": {
+      "message": "The AI Task returned a response that could not be parsed as JSON."
     }
   }
 }

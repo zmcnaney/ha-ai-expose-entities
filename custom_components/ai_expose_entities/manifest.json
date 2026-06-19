@@ -2,13 +2,13 @@
   "domain": "ai_expose_entities",
   "name": "AI Expose Entities",
   "codeowners": [
-    "@pdrakeweb"
+    "@zmcnaney"
   ],
   "config_flow": true,
   "dependencies": ["http"],
-  "documentation": "https://github.com/pdrakeweb/ha-ai-expose-entities",
+  "documentation": "https://github.com/zmcnaney/ha-ai-expose-entities",
   "integration_type": "service",
   "iot_class": "calculated",
-  "issue_tracker": "https://github.com/pdrakeweb/ha-ai-expose-entities/issues",
+  "issue_tracker": "https://github.com/zmcnaney/ha-ai-expose-entities/issues",
   "version": "0.2.0"
 }
